@@ -1,0 +1,3 @@
+Bitwig script for Livid Minim Bluetooth LE MIDI controller.
+
+Usage instructions coming soon...
