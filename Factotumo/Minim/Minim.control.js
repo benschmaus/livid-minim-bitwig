@@ -12,7 +12,7 @@ More at README.
 loadAPI(1);
 
 host.defineController(
-    "Factotumo", "Minim",
+    "Factotumo", "Minim (Basic)",
     "1.0", "20df4278-0d6a-46e6-a158-fcfaa921260a"
 );
 host.defineMidiPorts(1, 0); // no midi out available at the moment
