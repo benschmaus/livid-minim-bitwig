@@ -70,7 +70,7 @@ function onMidi(status, data1, data2) {
     // the touch fader sends CC1, which we use for volume.
     if (status == 0x90) {
         if (data2 > 0) {
-            if (minim.isLeftColumnButton(data1)) {
+            if (minim.isLeftColumnButton(data1) || minim.isSideButton(data1)) {
                 minim.leftColumnNotesToActions[data1](bitwig);
             } else if (minim.isRectangleButton(data1)) {
                 bitwig.trackBank.getTrack(minim.topAndBottomRectangleButtonToTrackMapping[data1]).getMute().toggle();
@@ -79,7 +79,9 @@ function onMidi(status, data1, data2) {
             }
         }
     } else if (status == 0xB0) {
-        bitwig.cursorTrack.getVolume().set(data2, 128);
+        if (minim.isTouchFader(data1)) {
+            bitwig.cursorTrack.getVolume().set(data2, 128);
+        }
     }
 }
 
@@ -150,11 +152,17 @@ minim.leftColumnNotesToActions = {
             bitwig.transport.record();
         }
     },
-    4: function (bitwig) {
+    48: function (bitwig) {
         bitwig.cursorTrack.selectPrevious();
     },
-    5: function (bitwig) {
+    49: function (bitwig) {
         bitwig.cursorTrack.selectNext();
+    },
+    4:  function(bitwig) {
+        bitwig.cursorTrack.getMute().toggle();
+    },
+    5:  function(bitwig) {
+        bitwig.cursorTrack.getSolo().toggle();
     },
     6: function(bitwig) {
         bitwig.cursorTrack.getArm().toggle();
@@ -206,6 +214,14 @@ minim.resetPadPlaystates = function() {
 
 minim.isLeftColumnButton = function(data1) {
     return ((data1 > 1) && (data1 < 7));
+}
+
+minim.isSideButton = function(data1) {
+    return data1 >= 48;
+}
+
+minim.isTouchFader = function(data1) {
+    return data1 == 1;
 }
 
 minim.isRectangleButton = function(data1) {
