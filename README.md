@@ -1,6 +1,8 @@
 Bitwig script for Livid Minim Bluetooth LE MIDI controller.
 
-More detailed usage instructions coming soon but in a nutshell...
+Read more at https://factotumo.com/2016/08/bitwig-controller-script-for-livid-minim/
+
+If you're in a hurry, here's a brief overview of what the script does.
 
 * The left column buttons (top to bottom): toggle play, toggle record, toggle mute/solo/record for selected track
 * The large rectangular buttons mute tracks 1-8
